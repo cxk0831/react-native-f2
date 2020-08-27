@@ -15,5 +15,20 @@
   "bugs": {
     "url": "https://github.com/cxk0831/react-native-f2/issues"
   },
-  "homepage": "https://github.com/cxk0831/react-native-f2#readme"
+  "homepage": "https://github.com/cxk0831/react-native-f2#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.10.5",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^4.2.2",
+    "style-loader": "^1.2.1",
+    "webpack": "4.19.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
 }
