@@ -3,4 +3,5 @@ yarn.lock
 yarn-error.log
 node_modules
 dist
-src/*
+.DS_Store
+*/.DS_Store
