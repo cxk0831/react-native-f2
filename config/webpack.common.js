@@ -1,9 +1,24 @@
 const path = require("path");
+const fs = require('fs')
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
+const pageFileNameArray = fs.readdirSync(path.resolve('./src'))
+
+const createEntryConfig = (fileNameArray) => {
+    const configObj = {}
+    fileNameArray.forEach(fileName => (configObj[fileName] = path.resolve(`./src/${fileName}/index.tsx`)))
+    return configObj
+}
+
+const HtmlWebpackPluginArray = pageFileNameArray.map(fileName => new HtmlWebpackPlugin({
+    inject: true,
+    filename: path.resolve(__dirname, `../dist/${fileName}/index.html`),
+    template: path.resolve(__dirname, '../public/index.html')
+}))
+
 module.exports = {
-    entry: "./src/index.tsx",
+    entry: createEntryConfig(pageFileNameArray),
     mode: "development",
     module: {
         rules: [
@@ -34,13 +49,10 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, "../dist/"),
         publicPath: "./",
-        filename: "bundle.js"
+        filename: "[name]/bundle.js"
     },
     plugins: [
         new CleanWebpackPlugin(),
-        new HtmlWebpackPlugin({
-            filename: path.resolve(__dirname, '../dist/index.html'),
-            template: path.resolve(__dirname, '../public/index.html')
-        })
+        ...HtmlWebpackPluginArray
     ]
 };
