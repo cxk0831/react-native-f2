@@ -3,11 +3,15 @@ const fs = require('fs')
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
-const pageFileNameArray = fs.readdirSync(path.resolve('./src'))
+let pageFileDirs = fs.readdirSync(path.resolve('./src'), { withFileTypes: true })
 
-const createEntryConfig = (fileNameArray) => {
+pageFileDirs = pageFileDirs.filter(fileItem => fileItem.isDirectory())
+
+const pageFileNameArray = pageFileDirs.map(dirItem => dirItem.name)
+
+const createEntryConfig = (pageFileNameArray) => {
     const configObj = {}
-    fileNameArray.forEach(fileName => (configObj[fileName] = path.resolve(`./src/${fileName}/index.tsx`)))
+    pageFileNameArray.forEach(fileName => (configObj[fileName] = path.resolve(`./src/${fileName}/index.tsx`)))
     return configObj
 }
 
