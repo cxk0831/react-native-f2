@@ -2,6 +2,7 @@ const path = require("path");
 const fs = require('fs')
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 let pageFileDirs = fs.readdirSync(path.resolve('./src'), { withFileTypes: true })
 
@@ -35,16 +36,16 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: [
-                    'style-loader',
+                    MiniCssExtractPlugin.loader,
                     'css-loader',
                 ],
             },
             {
                 test: /\.less$/,
                 use: [
-                    'style-loader',
+                    MiniCssExtractPlugin.loader,
                     'css-loader',
-                    'less-loader'
+                    'less-loader',
                 ],
             }
         ]
@@ -56,6 +57,9 @@ module.exports = {
         filename: "[name]/bundle.js"
     },
     plugins: [
+        new MiniCssExtractPlugin({
+            filename: '[name]/bundle.css',
+        }),
         new CleanWebpackPlugin(),
         ...HtmlWebpackPluginArray
     ]
