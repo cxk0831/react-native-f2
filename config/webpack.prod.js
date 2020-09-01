@@ -1,6 +1,23 @@
 const { merge } = require('webpack-merge')
 const common = require('./webpack.common')
+const StyleExtHtmlWebpackPlugin = require('style-ext-html-webpack-plugin')
+const { getPageFileNameArray } = require('../utils/utils')
+const InlineChunkHtmlPlugin = require('../plugin/InlineChunkHtmlPlugin')
+const HtmlWebpackPlugin = require("html-webpack-plugin")
+
+const pageFileNameArray = getPageFileNameArray()
+
+const StyleExtHtmlWebpackPluginArray = pageFileNameArray.map(fileName => (
+    new StyleExtHtmlWebpackPlugin({
+        minify: true,
+        chunks: [fileName]
+    })
+))
 
 module.exports = merge(common, {
-    mode: "production"
+    mode: "production",
+    plugins: [
+        ...StyleExtHtmlWebpackPluginArray,
+        new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/.*[.]js/]),
+    ]
 })
