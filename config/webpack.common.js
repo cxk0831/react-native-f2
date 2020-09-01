@@ -19,7 +19,8 @@ const createEntryConfig = (pageFileNameArray) => {
 const HtmlWebpackPluginArray = pageFileNameArray.map(fileName => new HtmlWebpackPlugin({
     inject: true,
     filename: path.resolve(__dirname, `../dist/${fileName}/index.html`),
-    template: path.resolve(__dirname, '../public/index.html')
+    template: path.resolve(__dirname, '../public/index.html'),
+    chunks: [fileName]
 }))
 
 module.exports = {
@@ -34,18 +35,13 @@ module.exports = {
                 options: { presets: ["@babel/env"] }
             },
             {
-                test: /\.css$/,
+                test: /\.(css|less)$/,
                 use: [
                     MiniCssExtractPlugin.loader,
-                    'css-loader',
-                ],
-            },
-            {
-                test: /\.less$/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    'css-loader',
-                    'less-loader',
+                    {
+                        loader: "css-loader",
+                    },
+                    'less-loader'
                 ],
             }
         ]
@@ -53,12 +49,13 @@ module.exports = {
     resolve: { extensions: ["*", ".js", ".jsx", ".ts", ".tsx"] },
     output: {
         path: path.resolve(__dirname, "../dist/"),
-        publicPath: "./",
-        filename: "[name]/bundle.js"
+        publicPath: "../",
+        filename: "[name].js"
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: '[name]/bundle.css',
+            filename: '[name].css',
+            publicPath: "../",
         }),
         new CleanWebpackPlugin(),
         ...HtmlWebpackPluginArray
