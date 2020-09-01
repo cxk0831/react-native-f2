@@ -1,25 +1,22 @@
 const path = require("path");
-const fs = require('fs')
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-
-let pageFileDirs = fs.readdirSync(path.resolve('./src'), { withFileTypes: true })
-
-pageFileDirs = pageFileDirs.filter(fileItem => fileItem.isDirectory())
-
-const pageFileNameArray = pageFileDirs.map(dirItem => dirItem.name)
+const { getPageFileNameArray } = require('../utils/utils')
+const { rootDirectory } = require('./config')
 
 const createEntryConfig = (pageFileNameArray) => {
     const configObj = {}
-    pageFileNameArray.forEach(fileName => (configObj[fileName] = path.resolve(`./src/${fileName}/index.tsx`)))
+    pageFileNameArray.forEach(fileName => (configObj[fileName] = path.resolve(rootDirectory, `./src/${fileName}/index.tsx`)))
     return configObj
 }
 
+const pageFileNameArray = getPageFileNameArray()
+
 const HtmlWebpackPluginArray = pageFileNameArray.map(fileName => new HtmlWebpackPlugin({
     inject: true,
-    filename: path.resolve(__dirname, `../dist/${fileName}/index.html`),
-    template: path.resolve(__dirname, '../public/index.html'),
+    filename: path.resolve(rootDirectory, `./dist/${fileName}/index.html`),
+    template: path.resolve(rootDirectory, './public/index.html'),
     chunks: [fileName]
 }))
 
@@ -48,7 +45,7 @@ module.exports = {
     },
     resolve: { extensions: ["*", ".js", ".jsx", ".ts", ".tsx"] },
     output: {
-        path: path.resolve(__dirname, "../dist/"),
+        path: path.resolve(rootDirectory, "./dist/"),
         publicPath: "../",
         filename: "[name].js"
     },
