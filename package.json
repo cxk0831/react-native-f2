@@ -4,7 +4,7 @@
   "description": "React Native项目中以静态HTML的形式集成F2报表",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "export": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config config/webpack.prod.js",
     "dev": "webpack-dev-server --config config/webpack.dev.js"
   },
@@ -45,6 +45,7 @@
     "webpack-merge": "^5.1.2"
   },
   "dependencies": {
+    "@antv/f2": "^3.7.6",
     "antd-mobile": "^2.3.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
