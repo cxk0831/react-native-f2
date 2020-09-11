@@ -4,9 +4,12 @@
   "description": "React Native项目中以静态HTML的形式集成F2报表",
   "main": "index.js",
   "scripts": {
-    "export": "echo \"Error: no test specified\" && exit 1",
+    "init": "",
     "build": "webpack --config config/webpack.prod.js",
-    "dev": "webpack-dev-server --config config/webpack.dev.js"
+    "dev": "webpack-dev-server --config config/webpack.dev.js",
+    "exportNpmDev": "node script/exportNpmDev.js",
+    "exportNpm": "node script/exportNpm.js",
+    "exportProject": "node script/exportProject.js"
   },
   "repository": {
     "type": "git",
@@ -42,11 +45,11 @@
     "webpack": "4.19.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0",
-    "webpack-merge": "^5.1.2"
-  },
-  "dependencies": {
+    "webpack-merge": "^5.1.2",
     "@antv/f2": "^3.7.6",
     "antd-mobile": "^2.3.3",
+    "colors-console": "^1.0.3",
+    "fs-extra": "^9.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-hot-loader": "^4.12.21"
