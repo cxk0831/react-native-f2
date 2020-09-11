@@ -1,7 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { getPageFileNameArray } = require('../utils/utils')
 const { rootDirectory } = require('./config')
 
@@ -15,7 +14,7 @@ const pageFileNameArray = getPageFileNameArray()
 
 const HtmlWebpackPluginArray = pageFileNameArray.map(fileName => new HtmlWebpackPlugin({
     inject: true,
-    filename: path.resolve(rootDirectory, `./dist/${fileName}/index.html`),
+    filename: path.resolve(rootDirectory, `./dist/${fileName}.html`),
     template: path.resolve(rootDirectory, './public/index.html'),
     chunks: [fileName]
 }))
@@ -34,11 +33,9 @@ module.exports = {
             {
                 test: /\.(css|less)$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
-                    {
-                        loader: "css-loader",
-                    },
-                    'less-loader'
+                    'style-loader',
+                    'css-loader',
+                    'less-loader',
                 ],
             }
         ]
@@ -50,10 +47,10 @@ module.exports = {
         filename: "[name].js"
     },
     plugins: [
-        new MiniCssExtractPlugin({
-            filename: '[name].css',
-            publicPath: "../",
-        }),
+        // new MiniCssExtractPlugin({
+        //     filename: '[name].css',
+        //     publicPath: "../",
+        // }),
         new CleanWebpackPlugin(),
         ...HtmlWebpackPluginArray
     ]
