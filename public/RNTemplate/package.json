@@ -1,0 +1,8 @@
+{
+  "name": "${libraryName}",
+  "version": "${libraryVersion}",
+  "description": "${libraryDescription}",
+  "main": "/RNComponent/index.js",
+  "author": "cxk",
+  "license": "ISC"
+}
