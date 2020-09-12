@@ -14,7 +14,7 @@ const pageFileNameArray = getPageFileNameArray()
 
 const HtmlWebpackPluginArray = pageFileNameArray.map(fileName => new HtmlWebpackPlugin({
     inject: true,
-    filename: path.resolve(rootDirectory, `./dist/${fileName}.html`),
+    filename: path.resolve(rootDirectory, `./dist/${fileName}/index.html`),
     template: path.resolve(rootDirectory, './public/index.html'),
     chunks: [fileName]
 }))
