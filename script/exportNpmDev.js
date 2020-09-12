@@ -14,6 +14,7 @@ async function main() {
     const libraryName = await Utils.getLibraryName()
     const libraryNameHump = await Utils.getLibraryNameWithHump()
     const outputAddress = path.resolve(rootDirectory, `./output/${libraryNameHump}`)
+    await fsExtra.emptyDirSync(`${projectAddress}/node_modules/${libraryNamePrefix}${libraryName}`)
     await fsExtra.copy(outputAddress, `${projectAddress}/node_modules/${libraryNamePrefix}${libraryName}`, {filter: (filename) => !filename.includes('package.json')})
     console.log(colors('green','项目输出完毕'))
 }
