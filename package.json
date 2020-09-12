@@ -4,10 +4,10 @@
   "description": "React Native项目中以静态HTML的形式集成F2报表",
   "main": "index.js",
   "scripts": {
-    "init": "",
+    "init": "node script/init.js",
     "build": "webpack --config config/webpack.prod.js",
-    "dev": "webpack-dev-server --config config/webpack.dev.js",
-    "exportNpmDev": "node script/exportNpmDev.js",
+    "dev": "node script/createMap.js && webpack-dev-server --config config/webpack.dev.js",
+    "exportNpmDev": "webpack --config config/webpack.prod.js && node script/exportNpmDev.js",
     "exportNpm": "node script/exportNpm.js",
     "exportProject": "node script/exportProject.js"
   },
